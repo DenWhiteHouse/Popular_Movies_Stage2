@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    //MovieDetails Layout
+    <dimen name="base_margin">8dp</dimen>
+    <dimen name="normal_margin">8dp</dimen>
+    <dimen name="detailsimagebox_width">185dp</dimen>
+    <dimen name="detailsimagebox_height">270dp</dimen>
+    <dimen name="poster_width">185</dimen>
+    <dimen name="poster_height">270</dimen>
+    <dimen name="list_itempadding">8dp</dimen>
+    <dimen name="list_item_thumb">100dp</dimen>
+</resources>
