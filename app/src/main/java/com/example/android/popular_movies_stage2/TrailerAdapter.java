@@ -14,14 +14,16 @@ import java.util.List;
  */
 
 public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHolder> {
+    final private String YOUTUBE_BASE = "https://www.youtube.com/watch?v=";
+    OnItemClickListener mListener;
     private List<Trailer> mTrailers;
     private LayoutInflater mInflater;
     private Context mContext;
-
     //Constructor
-    TrailerAdapter(Context context, List<Trailer> trailers) {
+    TrailerAdapter(Context context, List<Trailer> trailers, OnItemClickListener listener) {
         mTrailers = trailers;
         mContext = context;
+        mListener = listener;
     }
 
     // Create new views
@@ -43,18 +45,22 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         // inflates the elements into the view
-        Trailer source = mTrailers.get(position);
-        holder.mSource.setText(source.getSource());
+        final Trailer source = mTrailers.get(position);
+        holder.mSource.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onItemClick(source);
+            }
+        });
+        // For learning reasons I will show the link, but I'll keep divided Youtube base URL and Video ID
+        holder.mSource.setText(YOUTUBE_BASE + source.getSource());
     }
 
-    public void add(int position, Trailer source) {
-        mTrailers.add(position, source);
-    }
-
-    public Context getContext() {
-        return mContext;
+    //Interface for the ClickLIstener
+    public interface OnItemClickListener {
+        void onItemClick(Trailer trailer);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -65,4 +71,5 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHold
             mSource = v.findViewById(R.id.trailerLink);
         }
     }
+
 }

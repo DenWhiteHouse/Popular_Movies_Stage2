@@ -1,8 +1,10 @@
 package com.example.android.popular_movies_stage2;
 
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +28,20 @@ public class MovieDetails extends AppCompatActivity {
     ReviewAdapter mReviewAdapter;
     private int POSTERSIZEw = 185;
     private int POSTERSIZEh = 270;
+
+    //Implicit Intent to Watch the Trailer on YouTube
+    public static void watchYoutubeVideo(Context context, String id) {
+        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + id));
+        //Passing the local context instread of MovideDtails.this needs the FLAG_ACTIVITY_NEW TASK( is this what you want) to start the intent
+        appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        webIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        try {
+            context.startActivity(appIntent);
+        } catch (ActivityNotFoundException ex) {
+            context.startActivity(webIntent);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +95,12 @@ public class MovieDetails extends AppCompatActivity {
                     trailersFields.add(i, trailers[i]);
                 }
                 //Adapter
-                mTrailerAdapter = new TrailerAdapter(context, trailersFields);
+                mTrailerAdapter = new TrailerAdapter(context, trailersFields, new TrailerAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Trailer trailer) {
+                        watchYoutubeVideo(context, trailer.mSource);
+                    }
+                });
                 recyclerView.setAdapter(mTrailerAdapter);
             }
         };
