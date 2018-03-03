@@ -15,7 +15,7 @@
     <string name="reviews">Reviews</string>
 
     //Reviews and Trailers
-    <string name="watchTrailer">Watch Trailer: </string>
+    <string name="watchTrailer">Click the link to Watch: </string>
     <string name="review">Review: </string>
     <string name="authur">Authur: </string>
 

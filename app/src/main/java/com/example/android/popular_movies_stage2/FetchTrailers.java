@@ -6,8 +6,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +22,8 @@ import java.net.URL;
  */
 
 public class FetchTrailers extends AsyncTask<String, Void, Trailer[]>  {
+    // LOG message
+    private static final String LOG_TAG = FetchReviews.class.getSimpleName();
     //ENDPOINTs KEYValues are here so they can be easily be updated in case the programs would fetch trailers
     //and reviews from external resources
     private String TMDB_BASE_URL = "https://api.themoviedb.org/3/movie/";
@@ -31,8 +33,6 @@ public class FetchTrailers extends AsyncTask<String, Void, Trailer[]>  {
     //JSON Exploration
     private String TRAILERKey="key";
     private String JSONresults="results";
-    // LOG message
-    private static final String LOG_TAG = FetchReviews.class.getSimpleName();
     //Utils
     private OnFetchTrailersCompleted mListener;
 

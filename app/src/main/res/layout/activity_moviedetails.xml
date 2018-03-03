@@ -102,9 +102,10 @@
                 android:text="@string/trailers" />
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/trailerRecylerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/trailerRecylerView">
+                android:paddingTop="@dimen/base_margin">
             </android.support.v7.widget.RecyclerView>
 
             <TextView
@@ -114,9 +115,9 @@
                 android:text="@string/reviews" />
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/reviewRecylerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/reviewRecylerView">
+                android:layout_height="wrap_content">
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
