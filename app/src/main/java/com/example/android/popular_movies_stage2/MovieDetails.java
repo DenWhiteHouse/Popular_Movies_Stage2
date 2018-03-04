@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,8 +26,8 @@ import java.util.List;
 
 public class MovieDetails extends AppCompatActivity {
 
-
     TrailerAdapter mTrailerAdapter;
+    Button mFavButton;
     ReviewAdapter mReviewAdapter;
     private int POSTERSIZEw = 185;
     private int POSTERSIZEh = 270;
@@ -47,12 +50,21 @@ public class MovieDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moviedetails);
-        //Bonding class variables to views
-        TextView OriginalTitleTV = (TextView) findViewById(R.id.originalTitle);
-        ImageView ImageIV = (ImageView) findViewById(R.id.movieImage);
-        TextView SynopsysTV = (TextView) findViewById(R.id.synopsis);
-        TextView RatingTV = (TextView) findViewById(R.id.userRating);
-        TextView ReleaseDateTV = (TextView) findViewById(R.id.releaseDate);
+        //Setting the FavoButton
+        mFavButton = findViewById(R.id.buttonFav);
+        mFavButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveFavouriteMovie();
+            }
+        });
+
+        TextView OriginalTitleTV = findViewById(R.id.originalTitle);
+        ImageView ImageIV = findViewById(R.id.movieImage);
+        TextView SynopsysTV = findViewById(R.id.synopsis);
+        TextView RatingTV = findViewById(R.id.userRating);
+        TextView ReleaseDateTV = findViewById(R.id.releaseDate);
+
 
         //Some scholarship mate suggested me to user Parcelable, but as first project I preferred to
         // get more practise with simple intents
@@ -131,5 +143,9 @@ public class MovieDetails extends AppCompatActivity {
         // Fetch Trailers AsyncTask
         FetchReviews fetchReviews = new FetchReviews(taskCompleted);
         fetchReviews.execute(movieID);
+    }
+
+    private void saveFavouriteMovie() {
+        Toast.makeText(MovieDetails.this, R.string.favouriteSaveClicked, Toast.LENGTH_SHORT).show();
     }
 }

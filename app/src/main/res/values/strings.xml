@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Popular_Movies_Stage2</string>
     <string name="action_settings">MENU</string>
     <string name="placeholder">placeholder</string>
@@ -13,6 +14,9 @@
     //Stage 2 Layout
     <string name="trailers">Trailers</string>
     <string name="reviews">Reviews</string>
+    <string name="favouriteSave">Save as Favourite</string>
+    <string name="favouriteSaveClicked">Saved as Favourite</string>
+
 
     //Reviews and Trailers
     <string name="watchTrailer">Click the link to Watch: </string>
