@@ -2,6 +2,7 @@ package com.example.android.popular_movies_stage2;
 
 
 import android.content.ActivityNotFoundException;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.popular_movies_stage2.MoviesDBContract.MovieEntry;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,10 +27,12 @@ import java.util.List;
  */
 
 public class MovieDetails extends AppCompatActivity {
+    MovieContentProvider mMovieContentProvider;
 
     TrailerAdapter mTrailerAdapter;
     Button mFavButton;
     ReviewAdapter mReviewAdapter;
+    Movie mMovie;
     private int POSTERSIZEw = 185;
     private int POSTERSIZEh = 270;
 
@@ -55,7 +59,7 @@ public class MovieDetails extends AppCompatActivity {
         mFavButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveFavouriteMovie();
+                saveFavouriteMovie(mMovie);
             }
         });
 
@@ -71,6 +75,7 @@ public class MovieDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
         Movie movie = intent.getParcelableExtra(getResources().getString(R.string.intent_movie));
+        mMovie = movie;
 
         // The movie object as Parceable from the intent contains the information to be used
         // to populate the UI of Details
@@ -145,7 +150,18 @@ public class MovieDetails extends AppCompatActivity {
         fetchReviews.execute(movieID);
     }
 
-    private void saveFavouriteMovie() {
+    private void saveFavouriteMovie(Movie mMovie) {
         Toast.makeText(MovieDetails.this, R.string.favouriteSaveClicked, Toast.LENGTH_SHORT).show();
+
+        ContentValues values = new ContentValues();
+        values.put(MovieEntry.COLUMN_ORIGINAL_TITLE, mMovie.getOrginalTitle());
+        values.put(MovieEntry.COLUMN_POSTER_PATH, mMovie.getImage());
+        values.put(MovieEntry.COLUMN_OVERVIEW, mMovie.getSynopsis());
+        values.put(MovieEntry.COLUMN_VOTE_AVERAGE, mMovie.getRating());
+        values.put(MovieEntry.COLUMN_RELEASE_DATE, mMovie.getMovieReleaseDate());
+        values.put(MovieEntry.COLUMN_MOVIE_ID, mMovie.getMovieID());
+        getContentResolver().insert(MovieEntry.CONTENT_URI, values);
+
+        //TODO: Store Trailers and Reviews as well, checking for the connection, changing the details layout adding (un)visible messages
     }
 }

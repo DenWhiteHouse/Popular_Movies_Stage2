@@ -36,21 +36,19 @@ public class MovieContentProvider extends ContentProvider {
     // Static initializer of Matcher
     static {
         sUriMatcher.addURI(MoviesDBContract.CONTENT_AUTHORITY, MoviesDBContract.PATH_MOVIEDB, MOVIETABLE);
-        sUriMatcher.addURI(MoviesDBContract.CONTENT_AUTHORITY, MoviesDBContract.PATH_MOVIEDB, TRAILERTABLE);
-        sUriMatcher.addURI(MoviesDBContract.CONTENT_AUTHORITY, MoviesDBContract.PATH_MOVIEDB, REVIEWTABLE);
-        sUriMatcher.addURI(MoviesDBContract.CONTENT_AUTHORITY, MoviesDBContract.PATH_MOVIEDB, MOVIE);
-        sUriMatcher.addURI(MoviesDBContract.CONTENT_AUTHORITY, MoviesDBContract.PATH_MOVIEDB, TRAILER);
-        sUriMatcher.addURI(MoviesDBContract.CONTENT_AUTHORITY, MoviesDBContract.PATH_MOVIEDB, REVIEW);
+        sUriMatcher.addURI(MoviesDBContract.CONTENT_AUTHORITY, MoviesDBContract.PATH_MOVIEDB + "/#", MOVIE);
+        //TODO: Add here Statics for Trailers and Reviews
+
     }
 
-    //Private Database Helper
-    private MovieDBHelper mDBHelper;
+    public MovieDBHelper mDBHelper;
 
     @Override
     public boolean onCreate() {
-        mDBHelper = new MovieDBHelper(getContext());
+        // mDBHelper = new MovieDBHelper(getContext());
         return true;
     }
+
 
     // Understands if a table or a single item
     @Override
@@ -149,6 +147,7 @@ public class MovieContentProvider extends ContentProvider {
         String vote_average = values.getAsString(MovieEntry.COLUMN_VOTE_AVERAGE);
         String realease_date = values.getAsString(MovieEntry.COLUMN_RELEASE_DATE);
         String overview = values.getAsString(MovieEntry.COLUMN_OVERVIEW);
+        mDBHelper = new MovieDBHelper(getContext());
 
         // Get writeable database
         SQLiteDatabase database = mDBHelper.getWritableDatabase();

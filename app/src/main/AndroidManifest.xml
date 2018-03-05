@@ -30,5 +30,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
+        <provider
+            android:name="MovieContentProvider"
+            android:authorities="com.example.android.popular_movies_stage2"
+            android:multiprocess="true"></provider>
     </application>
 </manifest>

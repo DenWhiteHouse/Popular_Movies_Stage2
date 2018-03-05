@@ -48,6 +48,8 @@ public final class MoviesDBContract {
 
     }
 
+    //TODO: Improve and customize the project by storing also trailers and reviws
+
     //Table for Trailers
     public static final class TrailerEntry implements BaseColumns {
         public static final String TABLE_NAME = "trailers";
