@@ -31,6 +31,7 @@ public class MovieDetails extends AppCompatActivity {
 
     TrailerAdapter mTrailerAdapter;
     Button mFavButton;
+    TextView mIsFavTV;
     ReviewAdapter mReviewAdapter;
     Movie mMovie;
     private int POSTERSIZEw = 185;
@@ -60,6 +61,8 @@ public class MovieDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveFavouriteMovie(mMovie);
+                mFavButton.setVisibility(View.GONE);
+                mIsFavTV.setVisibility(View.VISIBLE);
             }
         });
 
@@ -68,7 +71,8 @@ public class MovieDetails extends AppCompatActivity {
         TextView SynopsysTV = findViewById(R.id.synopsis);
         TextView RatingTV = findViewById(R.id.userRating);
         TextView ReleaseDateTV = findViewById(R.id.releaseDate);
-
+        // Starting the Layout the Favourite Message is not visible
+        mIsFavTV = findViewById(R.id.isYourFavourite);
 
         //Some scholarship mate suggested me to user Parcelable, but as first project I preferred to
         // get more practise with simple intents
@@ -76,6 +80,13 @@ public class MovieDetails extends AppCompatActivity {
         Intent intent = getIntent();
         Movie movie = intent.getParcelableExtra(getResources().getString(R.string.intent_movie));
         mMovie = movie;
+
+        // If the Movie is A favourite Movie Don't Show the Button to add as Favourite but a Message instead
+        // The User can Unfavoruite the Movie from the Favourite SortLayout on the MainActivity
+        if ((mMovie.mIsFavourireFLAG) == 1) {
+            mFavButton.setVisibility(View.GONE);
+            mIsFavTV.setVisibility(View.VISIBLE);
+        }
 
         // The movie object as Parceable from the intent contains the information to be used
         // to populate the UI of Details

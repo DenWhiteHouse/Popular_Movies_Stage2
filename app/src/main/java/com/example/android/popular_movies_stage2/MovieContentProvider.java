@@ -45,6 +45,7 @@ public class MovieContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
+        // On Updated code mDBHlper is set directly accessing the viriable
         // mDBHelper = new MovieDBHelper(getContext());
         return true;
     }
@@ -116,7 +117,6 @@ public class MovieContentProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Cannot query unknown URI " + uri);
         }
-        cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
     }
 
@@ -142,13 +142,7 @@ public class MovieContentProvider extends ContentProvider {
 
     //Insert Cases
     private Uri insertMovie(Uri uri, ContentValues values) {
-        String poster_path = values.getAsString(MovieEntry.COLUMN_POSTER_PATH);
-        String original_title = values.getAsString(MovieEntry.COLUMN_ORIGINAL_TITLE);
-        String vote_average = values.getAsString(MovieEntry.COLUMN_VOTE_AVERAGE);
-        String realease_date = values.getAsString(MovieEntry.COLUMN_RELEASE_DATE);
-        String overview = values.getAsString(MovieEntry.COLUMN_OVERVIEW);
         mDBHelper = new MovieDBHelper(getContext());
-
         // Get writeable database
         SQLiteDatabase database = mDBHelper.getWritableDatabase();
         // Insert the moview into the DB
@@ -311,6 +305,17 @@ public class MovieContentProvider extends ContentProvider {
         if (rowsDeleted != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
+        // Return the number of rows deleted
+        return rowsDeleted;
+    }
+
+    public int deleteSingleMovie(Uri uri, String[] selectionArgs) {
+        // Get writeable database
+        SQLiteDatabase database = mDBHelper.getWritableDatabase();
+        // Track the number of rows that were deleted
+        int rowsDeleted;
+        String selection = MovieEntry.COLUMN_MOVIE_ID + "=?";
+        rowsDeleted = database.delete(MovieEntry.TABLE_NAME, selection, selectionArgs);
         // Return the number of rows deleted
         return rowsDeleted;
     }

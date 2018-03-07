@@ -16,6 +16,9 @@
     <string name="reviews">Reviews</string>
     <string name="favouriteSave">Save as Favourite</string>
     <string name="favouriteSaveClicked">Saved as Favourite</string>
+    <string name="sortFavourite">Favourite</string>
+    <string name="Favourite">This movie is one of your Favourite</string>
+    <string name="UnFavourite">UnFavourite</string>
 
 
     //Reviews and Trailers

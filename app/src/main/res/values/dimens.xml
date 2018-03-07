@@ -10,4 +10,5 @@
     <dimen name="poster_height">270</dimen>
     <dimen name="list_itempadding">8dp</dimen>
     <dimen name="list_item_thumb">100dp</dimen>
+    <dimen name="favourite_String">16sp</dimen>
 </resources>

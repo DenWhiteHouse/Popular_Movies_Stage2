@@ -74,11 +74,26 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/buttonFav"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/favouriteSave" />
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/buttonFav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/favouriteSave" />
+
+                <TextView
+                    android:id="@+id/isYourFavourite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Favourite"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/favourite_String"
+                    android:visibility="invisible" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
