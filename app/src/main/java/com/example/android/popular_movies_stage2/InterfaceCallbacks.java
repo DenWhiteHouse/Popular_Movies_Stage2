@@ -12,3 +12,7 @@ interface OnFetchTrailersCompleted {
 interface OnFetchReviewsCompleted {
     void onUtilsAsyncTaskCompleted(Review[] revies);
 }
+
+interface OnFetchFavouriteCompleted {
+    void onUtilsAsyncTaskCompleted(Movie[] movies);
+}

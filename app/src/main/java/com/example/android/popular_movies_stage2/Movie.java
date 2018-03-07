@@ -13,19 +13,41 @@ import android.os.Parcelable;
 // https://stackoverflow.com/questions/7791998/how-to-define-parcelable-of-interface-type-in-aidl-file
 
 public class Movie implements Parcelable {
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        public Movie[] newArray(int i) {
+            return new Movie[i];
+        }
+    };
     String movieImagePath;
     String movieOriginalTitle;
     String movieSynopsis;
     String movieRating;
     String movieReleaseDate;
     String movieID;
+    // FLAG to know if the movies is a Favourite Movie to avoid fetching the Fatching Movies Again
+    int mIsFavourireFLAG;
+
+    //Methods to SET/GET variables from the Class Movie
     //Path for the dimension suggested by the project guidelines
     private String TMDB_IMAGE_URL_BASE = "https://image.tmdb.org/t/p/w185";
 
-    //Methods to SET/GET variables from the Class Movie
-
     //Constructor of the array
-    public Movie() {}
+    public Movie() {
+    }
+
+    private Movie(Parcel in) {
+        movieOriginalTitle = in.readString();
+        movieImagePath = in.readString();
+        movieSynopsis = in.readString();
+        movieRating = in.readString();
+        movieReleaseDate = in.readString();
+        movieID = in.readString();
+        mIsFavourireFLAG = in.readInt();
+    }
 
     public void setImagePath(String image) {
         movieImagePath = image;
@@ -33,6 +55,10 @@ public class Movie implements Parcelable {
 
     public String getImage() {
         return TMDB_IMAGE_URL_BASE + movieImagePath;
+    }
+
+    public String getImageNoBasePath() {
+        return movieImagePath;
     }
 
     public void setOriginalTitle(String originalTitle) {
@@ -67,10 +93,15 @@ public class Movie implements Parcelable {
         movieReleaseDate = releaseDate;
     }
 
+    public void setFlag(boolean isFav) {
+        mIsFavourireFLAG = 1;
+    }
+
     // Additional Function to store the movide ID for the Trailers and Reviews Request
     public String getMovieID() {
         return movieID;
     }
+
     public void setMovieID(String id) {
         movieID = id;
     }
@@ -81,15 +112,6 @@ public class Movie implements Parcelable {
         return 0;
     }
 
-    private Movie(Parcel in) {
-        movieOriginalTitle = in.readString();
-        movieImagePath = in.readString();
-        movieSynopsis = in.readString();
-        movieRating = in.readString();
-        movieReleaseDate = in.readString();
-        movieID = in.readString();
-    }
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(movieOriginalTitle);
@@ -98,15 +120,7 @@ public class Movie implements Parcelable {
         dest.writeString(movieRating);
         dest.writeString(movieReleaseDate);
         dest.writeString(movieID);
+        dest.writeInt(mIsFavourireFLAG);
     }
-
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
-        public Movie createFromParcel(Parcel source) {
-            return new Movie(source);
-        }
-        public Movie[] newArray(int i) {
-            return new Movie[i];
-        }
-    };
 }
 

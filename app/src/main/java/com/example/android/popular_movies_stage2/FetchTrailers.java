@@ -17,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+
 /**
  * Created by casab on 01/03/2018.
  */
@@ -98,7 +99,6 @@ public class FetchTrailers extends AsyncTask<String, Void, Trailer[]>  {
             for (int i = 0; i < results.length(); i++) {
                 // initiliaze a new index array
                 trailers[i] = new Trailer();
-                ;
                 //Taking results from the JSON object
                 JSONObject jsonObject = results.getJSONObject(i);
                 // Store fields of the Object in the Movie Array
